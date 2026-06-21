@@ -21,6 +21,7 @@ import { checkIn, checkOut, fetchAttendance } from '../store/attendanceSlice'
 import { fetchEmployees } from '../store/employeeSlice'
 import { fetchLeaves } from '../store/leaveSlice'
 import { useSocket } from '../hooks/useSocket'
+import { API_BASE_URL } from '../services/api'
 import { format } from 'date-fns'
 import * as XLSX from 'xlsx'
 
@@ -31,6 +32,7 @@ export default function Attendance() {
   const { records } = useSelector((state) => state.attendance)
   const { employees } = useSelector((state) => state.employees)
   const { leaves } = useSelector((state) => state.leaves)
+  const fileBaseUrl = API_BASE_URL.replace(/\/api$/, '')
   const [attendanceFilter, setAttendanceFilter] = useState('today')
   const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'))
   const [selectedMonth, setSelectedMonth] = useState(format(new Date(), 'yyyy-MM'))
@@ -290,13 +292,13 @@ export default function Attendance() {
                   <TableRow key={`${row.employee?._id || 'unknown'}-${row.date}`}>
                     <TableCell>{row.employee?.name || 'Employee'}</TableCell>
                     <TableCell>
-                      {row.employee?.avatar ? <Avatar src={`http://localhost:5000${row.employee.avatar}`} /> : <Avatar>{row.employee?.name?.charAt(0) || 'E'}</Avatar>}
+                      {row.employee?.avatar ? <Avatar src={`${fileBaseUrl}${row.employee.avatar}`} /> : <Avatar>{row.employee?.name?.charAt(0) || 'E'}</Avatar>}
                     </TableCell>
                     <TableCell>
-                      {row.checkInPhoto ? <Avatar variant="rounded" src={`http://localhost:5000${row.checkInPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
+                      {row.checkInPhoto ? <Avatar variant="rounded" src={`${fileBaseUrl}${row.checkInPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
                     </TableCell>
                     <TableCell>
-                      {row.checkOutPhoto ? <Avatar variant="rounded" src={`http://localhost:5000${row.checkOutPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
+                      {row.checkOutPhoto ? <Avatar variant="rounded" src={`${fileBaseUrl}${row.checkOutPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
                     </TableCell>
                     <TableCell>{row.checkIn}</TableCell>
                     <TableCell>{row.checkOut}</TableCell>
