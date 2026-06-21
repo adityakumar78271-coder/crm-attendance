@@ -5,7 +5,10 @@ import User from '../models/User.js'
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/attendance-crm')
+    const conn = await mongoose.connect(
+      process.env.MONGO_URI ||
+      'mongodb+srv://adityakumar78271_db_user:cI9jF2O8Kp8PB1uP@cluster0.n9whpl1.mongodb.net/?appName=Cluster0'
+    )
     console.log(`MongoDB Connected: ${conn.connection.host}`)
     await seedDefaultAdmin()
   } catch (error) {
