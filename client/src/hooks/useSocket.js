@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
 import { toast } from 'react-toastify'
-import { API_BASE_URL } from '../services/api'
+import { API_HOST } from '../config/apiConfig'
 
-const SOCKET_URL = API_BASE_URL.replace(/\/api$/, '')
-
-const socket = io(SOCKET_URL, {
+const socket = io(API_HOST, {
   transports: ['websocket']
 })
 

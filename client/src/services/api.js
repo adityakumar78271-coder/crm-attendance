@@ -1,15 +1,13 @@
 import axios from 'axios'
-
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  import.meta.env.VITE_API_BASE_URL ||
-  'http://175.111.97.247:5000/api'
-
-export const API_BASE_URL = API_URL
+import { API_BASE_URL } from '../config/apiConfig'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
 })
 
 api.interceptors.request.use((config) => {

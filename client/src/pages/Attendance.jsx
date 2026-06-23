@@ -21,7 +21,7 @@ import { checkIn, checkOut, fetchAttendance } from '../store/attendanceSlice'
 import { fetchEmployees } from '../store/employeeSlice'
 import { fetchLeaves } from '../store/leaveSlice'
 import { useSocket } from '../hooks/useSocket'
-import { API_BASE_URL } from '../services/api'
+import { API_HOST } from '../config/apiConfig'
 import { format } from 'date-fns'
 import * as XLSX from 'xlsx'
 
@@ -32,7 +32,7 @@ export default function Attendance() {
   const { records } = useSelector((state) => state.attendance)
   const { employees } = useSelector((state) => state.employees)
   const { leaves } = useSelector((state) => state.leaves)
-  const fileBaseUrl = API_BASE_URL.replace(/\/api$/, '')
+  const fileBaseUrl = API_HOST
   const [attendanceFilter, setAttendanceFilter] = useState('today')
   const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'))
   const [selectedMonth, setSelectedMonth] = useState(format(new Date(), 'yyyy-MM'))
@@ -292,6 +292,7 @@ export default function Attendance() {
                   <TableRow key={`${row.employee?._id || 'unknown'}-${row.date}`}>
                     <TableCell>{row.employee?.name || 'Employee'}</TableCell>
                     <TableCell>
+<<<<<<< HEAD
                       {row.employee?.avatar ? <Avatar src={`${fileBaseUrl}${row.employee.avatar}`} /> : <Avatar>{row.employee?.name?.charAt(0) || 'E'}</Avatar>}
                     </TableCell>
                     <TableCell>
@@ -299,6 +300,15 @@ export default function Attendance() {
                     </TableCell>
                     <TableCell>
                       {row.checkOutPhoto ? <Avatar variant="rounded" src={`${fileBaseUrl}${row.checkOutPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
+=======
+                      {row.employee?.avatar ? <Avatar src={`${API_HOST}${row.employee.avatar}`} /> : <Avatar>{row.employee?.name?.charAt(0) || 'E'}</Avatar>}
+                    </TableCell>
+                    <TableCell>
+                      {row.checkInPhoto ? <Avatar variant="rounded" src={`${API_HOST}${row.checkInPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
+                    </TableCell>
+                    <TableCell>
+                      {row.checkOutPhoto ? <Avatar variant="rounded" src={`${API_HOST}${row.checkOutPhoto}`} sx={{ width: 56, height: 56 }} /> : '—'}
+>>>>>>> 2807d14 (chore(client): switch to production API via VITE_API_URL; centralize API config; update sockets and asset URLs)
                     </TableCell>
                     <TableCell>{row.checkIn}</TableCell>
                     <TableCell>{row.checkOut}</TableCell>
